@@ -4,24 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ReplyForge — AI Cold Email Generator That Books Meetings</title>
-  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --surface2: #1a1a26;
-      --border: #2a2a3d;
-      --accent: #6c63ff;
-      --accent2: #ff6584;
-      --text: #e8e8f0;
-      --muted: #8888a0;
-      --green: #00d97e;
-      --yellow: #ffd166;
+      --bg: #0a0a0f; --surface: #12121a; --surface2: #1a1a26; --border: #2a2a3d;
+      --accent: #6c63ff; --accent2: #ff6584; --text: #e8e8f0; --muted: #8888a0;
+      --green: #00d97e; --yellow: #ffd166;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-    /* NAV */
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(12px); z-index: 100; }
     .logo { font-weight: 800; font-size: 1.3rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
@@ -29,8 +20,6 @@
     .nav-links a:hover { color: var(--text); }
     .btn-cta { background: var(--accent); color: #fff; border: none; padding: 0.55rem 1.3rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: opacity 0.2s; }
     .btn-cta:hover { opacity: 0.85; }
-
-    /* HERO */
     .hero { text-align: center; padding: 5rem 1.5rem 3rem; max-width: 860px; margin: 0 auto; }
     .badge { display: inline-block; background: rgba(108,99,255,0.15); border: 1px solid rgba(108,99,255,0.35); color: var(--accent); font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.85rem; border-radius: 99px; margin-bottom: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase; }
     h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; line-height: 1.15; margin-bottom: 1.2rem; }
@@ -44,45 +33,32 @@
     .social-proof { margin-top: 2.5rem; color: var(--muted); font-size: 0.85rem; }
     .avatars { display: inline-flex; margin-right: 0.6rem; }
     .avatar { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--bg); background: linear-gradient(135deg, var(--accent), var(--accent2)); margin-left: -8px; font-size: 0.65rem; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-
-    /* DEMO SECTION */
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; max-width: 700px; margin: 0 auto 4rem; padding: 0 1.5rem; }
+    .stat { background: var(--surface); padding: 1.5rem; text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 900; color: var(--accent); }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
     .demo { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 4rem; }
     .demo-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
     .demo-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; font-weight: 600; }
     .dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dot.green { background: var(--green); }
-    .dot.yellow { background: var(--yellow); }
-    .dot.red { background: var(--accent2); }
+    .dot.green { background: var(--green); } .dot.yellow { background: var(--yellow); } .dot.red { background: var(--accent2); }
     .demo-body { padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     @media(max-width:640px){ .demo-body { grid-template-columns: 1fr; } }
     .input-group { display: flex; flex-direction: column; gap: 0.5rem; }
     label { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
-    input, textarea, select {
-      background: var(--surface2); border: 1px solid var(--border); color: var(--text);
-      padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.9rem; outline: none; width: 100%;
-      transition: border-color 0.2s;
-    }
+    input, textarea, select { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.9rem; outline: none; width: 100%; transition: border-color 0.2s; }
     input:focus, textarea:focus, select:focus { border-color: var(--accent); }
     textarea { resize: vertical; min-height: 80px; }
     .span-2 { grid-column: span 2; }
     @media(max-width:640px){ .span-2 { grid-column: span 1; } }
     .generate-btn { background: linear-gradient(135deg, var(--accent), #8b5cf6); color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 10px; cursor: pointer; font-size: 0.95rem; font-weight: 700; width: 100%; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-    .generate-btn:hover { opacity: 0.88; }
-    .generate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .generate-btn:hover { opacity: 0.88; } .generate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .output-area { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; font-size: 0.88rem; line-height: 1.7; min-height: 220px; white-space: pre-wrap; color: var(--text); position: relative; }
     .output-placeholder { color: var(--muted); font-style: italic; }
     .copy-btn { position: absolute; top: 0.6rem; right: 0.6rem; background: var(--surface); border: 1px solid var(--border); color: var(--muted); padding: 0.3rem 0.7rem; border-radius: 6px; cursor: pointer; font-size: 0.78rem; transition: color 0.2s; }
     .copy-btn:hover { color: var(--text); }
     .credits-bar { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 1.5rem; background: rgba(108,99,255,0.08); border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--muted); }
     .credits-used { color: var(--accent); font-weight: 600; }
-
-    /* STATS */
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; max-width: 700px; margin: 0 auto 4rem; }
-    .stat { background: var(--surface); padding: 1.5rem; text-align: center; }
-    .stat-num { font-size: 2rem; font-weight: 900; color: var(--accent); }
-    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
-
-    /* FEATURES */
     .section { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 5rem; }
     .section-title { text-align: center; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.8rem; }
     .section-sub { text-align: center; color: var(--muted); margin-bottom: 3rem; font-size: 0.95rem; }
@@ -92,8 +68,6 @@
     .feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
     .feature-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
     .feature-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
-
-    /* PRICING */
     .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
     .pricing-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; }
     .pricing-card.popular { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
@@ -109,78 +83,61 @@
     .plan-btn.primary { background: var(--accent); color: #fff; }
     .plan-btn.secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
     .plan-btn:hover { opacity: 0.85; }
-
-    /* MODAL */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; }
     .modal-overlay.active { display: flex; }
-    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; width: 90%; max-width: 440px; position: relative; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; width: 90%; max-width: 420px; position: relative; }
     .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.2rem; }
     .modal-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
-    .modal-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
-    #payment-form { display: flex; flex-direction: column; gap: 1rem; }
-    #card-element { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1rem; }
-    #card-errors { color: var(--accent2); font-size: 0.82rem; min-height: 1.2rem; }
-    .pay-btn { background: linear-gradient(135deg, var(--accent), #8b5cf6); color: #fff; border: none; padding: 0.9rem; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
-    .pay-btn:hover { opacity: 0.85; }
-    .pay-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .secure-note { text-align: center; color: var(--muted); font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
-
-    /* TOAST */
+    .modal-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; line-height: 1.6; }
+    .modal-form { display: flex; flex-direction: column; gap: 1rem; }
+    #modal-errors { color: var(--accent2); font-size: 0.82rem; min-height: 1rem; }
+    .pay-btn { background: linear-gradient(135deg, var(--accent), #8b5cf6); color: #fff; border: none; padding: 0.9rem; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; width: 100%; }
+    .pay-btn:hover { opacity: 0.85; } .pay-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .secure-note { text-align: center; color: var(--muted); font-size: 0.78rem; }
     .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1.2rem; font-size: 0.88rem; z-index: 999; transform: translateY(80px); opacity: 0; transition: all 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
     .toast.show { transform: translateY(0); opacity: 1; }
-    .toast.success { border-color: var(--green); }
-    .toast.error { border-color: var(--accent2); }
-
-    /* FOOTER */
+    .toast.success { border-color: var(--green); } .toast.error { border-color: var(--accent2); }
     footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
-
-    /* SPINNER */
     .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* TYPING EFFECT */
     .typing::after { content: "▋"; animation: blink 1s step-end infinite; }
     @keyframes blink { 50% { opacity: 0; } }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="logo">ReplyForge ⚡</div>
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#pricing">Pricing</a>
     <a href="#demo">Try Free</a>
-    <button class="btn-cta" onclick="openModal('starter')">Start Free Trial</button>
+    <button class="btn-cta" onclick="openModal('pro')">Start Free Trial</button>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-
+  <div class="badge">🚀 AI Revenue Experiment — ₹0 to ₹75 Lakh</div>
   <h1>Cold Emails That <span>Actually Book Meetings</span> — Written by AI in Seconds</h1>
-  <p class="hero-sub">Stop wasting hours crafting cold outreach. ReplyForge analyzes your prospect's company, pain points, and industry to generate hyper-personalized emails with 3–5× higher reply rates.</p>
+  <p class="hero-sub">Stop wasting hours crafting cold outreach. ReplyForge generates hyper-personalized emails with 3–5× higher reply rates.</p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">⚡ Try It Free — No Card Needed</button>
     <button class="btn-secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Pricing →</button>
   </div>
   <div class="social-proof">
     <div class="avatars">
-      <div class="avatar">JK</div><div class="avatar">ML</div><div class="avatar">SR</div><div class="avatar">TW</div>
+      <div class="avatar">AK</div><div class="avatar">RS</div><div class="avatar">PV</div><div class="avatar">NM</div>
     </div>
     <strong style="color:var(--text)">2,400+</strong> SDRs & founders already generating meetings
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats" style="max-width:700px;margin:0 auto 4rem;padding:0 1.5rem;">
+<div class="stats">
   <div class="stat"><div class="stat-num">3.2×</div><div class="stat-label">Higher reply rate vs templates</div></div>
-  <div class="stat"><div class="stat-num">47s</div><div class="stat-label">Average email generation time</div></div>
-  <div class="stat"><div class="stat-num">$0</div><div class="stat-label">To start — free tier forever</div></div>
+  <div class="stat"><div class="stat-num">47s</div><div class="stat-label">Average generation time</div></div>
+  <div class="stat"><div class="stat-num">₹0</div><div class="stat-label">To start — free tier forever</div></div>
 </div>
 
-<!-- DEMO -->
 <section id="demo" class="demo">
   <div class="demo-card">
     <div class="demo-header">
@@ -191,11 +148,11 @@
     <div class="demo-body">
       <div class="input-group">
         <label>Your Name & Role</label>
-        <input type="text" id="sender-name" placeholder="Alex Chen, Head of Sales at Acme" />
+        <input type="text" id="sender-name" placeholder="Arjun Sharma, Head of Sales at Acme" />
       </div>
       <div class="input-group">
         <label>Prospect Company</label>
-        <input type="text" id="prospect-company" placeholder="Salesforce, HubSpot, Stripe..." />
+        <input type="text" id="prospect-company" placeholder="Zepto, Groww, CRED..." />
       </div>
       <div class="input-group">
         <label>Prospect Role</label>
@@ -203,11 +160,11 @@
       </div>
       <div class="input-group">
         <label>Your Product / Offer</label>
-        <input type="text" id="product" placeholder="AI analytics dashboard for e-commerce" />
+        <input type="text" id="product" placeholder="AI analytics dashboard for D2C brands" />
       </div>
       <div class="input-group span-2">
         <label>Key Pain Point You Solve</label>
-        <textarea id="pain-point" placeholder="Their sales team wastes 3 hours/day on manual CRM updates..."></textarea>
+        <textarea id="pain-point" placeholder="Their team wastes 3 hours/day on manual reporting..."></textarea>
       </div>
       <div class="input-group">
         <label>Email Tone</label>
@@ -223,7 +180,7 @@
         <select id="cta">
           <option value="15min">Book a 15-min call</option>
           <option value="demo">Schedule a demo</option>
-          <option value="reply">Just ask a reply question</option>
+          <option value="reply">Ask a reply question</option>
           <option value="trial">Start a free trial</option>
         </select>
       </div>
@@ -235,7 +192,7 @@
       <div class="input-group span-2" style="position:relative">
         <label>Generated Email</label>
         <div class="output-area" id="output"><span class="output-placeholder">Your personalized cold email will appear here...</span></div>
-        <button class="copy-btn" onclick="copyEmail()" id="copy-btn" style="display:none">Copy</button>
+        <button class="copy-btn" id="copy-btn" onclick="copyEmail()" style="display:none">Copy</button>
       </div>
     </div>
     <div class="credits-bar">
@@ -245,96 +202,57 @@
   </div>
 </section>
 
-<!-- FEATURES -->
 <section id="features" class="section">
   <h2 class="section-title">Everything Your SDR Team Needs</h2>
-  <p class="section-sub">Built for solo founders, sales teams, and growth agencies who can't afford to guess.</p>
+  <p class="section-sub">Built for solo founders, sales teams, and growth agencies who need results.</p>
   <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">🎯</div>
-      <div class="feature-title">Hyper-Personalization Engine</div>
-      <div class="feature-desc">Analyzes role, industry, and company stage to craft emails that feel 1-to-1 — not copy-pasted blasts that go to spam.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <div class="feature-title">A/B Subject Line Generator</div>
-      <div class="feature-desc">Get 3 subject line variants per email — tested against patterns from 50M+ campaigns. Pick the one most likely to open.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔁</div>
-      <div class="feature-title">Follow-Up Sequence Builder</div>
-      <div class="feature-desc">Generate a full 5-touch sequence from one input. Varies tone, angle, and CTA so you don't feel like a bot.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🧠</div>
-      <div class="feature-title">Pain-Point Intelligence</div>
-      <div class="feature-desc">Map your prospect's likely frustrations by role and industry. AI suggests the most resonant hook before you write a word.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📋</div>
-      <div class="feature-title">Team Template Library</div>
-      <div class="feature-desc">Save your best emails, share with teammates, and build an institutional playbook that compounds over time.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔌</div>
-      <div class="feature-title">One-Click CRM Export</div>
-      <div class="feature-desc">Push emails directly to HubSpot, Salesforce, or Outreach. Never copy-paste between tabs again.</div>
-    </div>
+    <div class="feature-card"><div class="feature-icon">🎯</div><div class="feature-title">Hyper-Personalization Engine</div><div class="feature-desc">Analyzes role, industry, and company stage to craft emails that feel 1-to-1 — not copy-pasted blasts.</div></div>
+    <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">A/B Subject Line Generator</div><div class="feature-desc">Get 3 subject line variants per email. Pick the one most likely to get opened.</div></div>
+    <div class="feature-card"><div class="feature-icon">🔁</div><div class="feature-title">Follow-Up Sequence Builder</div><div class="feature-desc">Generate a full 5-touch sequence from one input. Varies tone, angle, and CTA automatically.</div></div>
+    <div class="feature-card"><div class="feature-icon">🧠</div><div class="feature-title">Pain-Point Intelligence</div><div class="feature-desc">AI suggests the most resonant hook for each prospect's role and industry before you write a word.</div></div>
+    <div class="feature-card"><div class="feature-icon">📋</div><div class="feature-title">Team Template Library</div><div class="feature-desc">Save your best emails, share with teammates, and build a playbook that compounds over time.</div></div>
+    <div class="feature-card"><div class="feature-icon">🔌</div><div class="feature-title">One-Click CRM Export</div><div class="feature-desc">Push emails directly to HubSpot, Salesforce, or Outreach. Never copy-paste between tabs again.</div></div>
   </div>
 </section>
 
-<!-- PRICING -->
 <section id="pricing" class="section">
   <h2 class="section-title">Simple, Transparent Pricing</h2>
   <p class="section-sub">Start free. Scale when you're booking meetings. Cancel anytime.</p>
   <div class="pricing-grid">
     <div class="pricing-card">
       <div class="plan-name">Starter</div>
-      <div class="plan-price">$0 <span>/mo</span></div>
+      <div class="plan-price">₹0 <span>/mo</span></div>
       <div class="plan-desc">Perfect for testing the waters</div>
       <ul class="plan-features">
-        <li>5 emails per day</li>
-        <li>3 tone styles</li>
-        <li>Subject line variants</li>
-        <li>Copy to clipboard</li>
-        <li>Community support</li>
+        <li>5 emails per day</li><li>3 tone styles</li><li>Subject line variants</li>
+        <li>Copy to clipboard</li><li>Community support</li>
       </ul>
       <button class="plan-btn secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Start Free</button>
     </div>
     <div class="pricing-card popular">
       <div class="popular-tag">🔥 Most Popular</div>
       <div class="plan-name">Pro</div>
-      <div class="plan-price">$29 <span>/mo</span></div>
+      <div class="plan-price">₹2,499 <span>/mo</span></div>
       <div class="plan-desc">For solo founders closing deals</div>
       <ul class="plan-features">
-        <li>Unlimited emails</li>
-        <li>5-touch follow-up sequences</li>
-        <li>All 6 tone styles</li>
-        <li>A/B subject testing</li>
-        <li>Personal template library (50)</li>
-        <li>CSV bulk export</li>
-        <li>Email support</li>
+        <li>Unlimited emails</li><li>5-touch follow-up sequences</li><li>All 6 tone styles</li>
+        <li>A/B subject testing</li><li>Template library (50)</li><li>CSV bulk export</li><li>Email support</li>
       </ul>
       <button class="plan-btn primary" onclick="openModal('pro')">Start 7-Day Free Trial</button>
     </div>
     <div class="pricing-card">
       <div class="plan-name">Team</div>
-      <div class="plan-price">$79 <span>/mo</span></div>
+      <div class="plan-price">₹6,499 <span>/mo</span></div>
       <div class="plan-desc">For SDR teams that want leverage</div>
       <ul class="plan-features">
-        <li>Everything in Pro</li>
-        <li>5 team seats included</li>
-        <li>Shared template library</li>
-        <li>CRM integrations (HubSpot, SF)</li>
-        <li>Analytics dashboard</li>
-        <li>Priority support</li>
-        <li>Custom AI fine-tuning</li>
+        <li>Everything in Pro</li><li>5 team seats included</li><li>Shared template library</li>
+        <li>CRM integrations</li><li>Analytics dashboard</li><li>Priority support</li>
       </ul>
       <button class="plan-btn secondary" onclick="openModal('team')">Start 7-Day Free Trial</button>
     </div>
   </div>
   <p style="text-align:center;color:var(--muted);font-size:0.82rem;margin-top:1.5rem">
-    🔒 Powered by Stripe · No contracts · Cancel anytime · 7-day money-back guarantee
+    🔒 Powered by Razorpay 🇮🇳 · UPI · Cards · Netbanking · No contracts · Cancel anytime
   </p>
 </section>
 
@@ -343,298 +261,179 @@
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-title" id="modal-title">Start Your Free Trial</div>
-    <div class="modal-sub" id="modal-sub">7 days free, then $29/mo. Cancel anytime.</div>
-    <form id="payment-form">
+    <div class="modal-sub" id="modal-sub">7 days free, then ₹2,499/mo. Cancel anytime.</div>
+    <div class="modal-form">
       <div class="input-group">
         <label>Full Name</label>
-        <input type="text" id="cardholder-name" placeholder="Alex Chen" required />
+        <input type="text" id="user-name" placeholder="Arjun Sharma" />
       </div>
       <div class="input-group">
-        <label>Email</label>
-        <input type="email" id="cardholder-email" placeholder="alex@company.com" required />
+        <label>Email Address</label>
+        <input type="email" id="user-email" placeholder="arjun@company.com" />
       </div>
       <div class="input-group">
-        <label>Card Details</label>
-        <div id="card-element"></div>
+        <label>Phone Number</label>
+        <input type="tel" id="user-phone" placeholder="+91 98765 43210" />
       </div>
-      <div id="card-errors"></div>
-      <button type="submit" class="pay-btn" id="pay-btn">Start Free Trial →</button>
-      <div class="secure-note">🔒 Encrypted by Stripe · No charge for 7 days</div>
-    </form>
+      <div id="modal-errors"></div>
+      <button class="pay-btn" id="pay-btn" onclick="startRazorpay()">Continue to Payment →</button>
+      <div class="secure-note">🔒 Secured by Razorpay · UPI · Cards · Netbanking · Wallets</div>
+    </div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- FOOTER -->
 <footer>
-  <p>© 2025 ReplyForge — Built as part of the AI $90K Revenue Experiment</p>
-  <p style="margin-top:0.5rem">Made with ⚡ by a solo founder using only free tools</p>
+  <p>© 2025 ReplyForge — AI Revenue Experiment 🇮🇳</p>
+  <p style="margin-top:0.5rem">Made with ⚡ using only free tools · Payments secured by Razorpay</p>
 </footer>
 
 <script>
-  // ─── CONFIG ─────────────────────────────────────────────
-  const STRIPE_PUBLIC_KEY = 'pk_test_YOUR_STRIPE_PUBLIC_KEY'; // Replace with your key
-  const API_BASE = '/api'; // Your backend URL
+  // ─── CONFIG — Fill these in before deploying ─────────────
+  const RAZORPAY_KEY_ID = 'rzp_test_YOUR_KEY_ID';          // Razorpay Dashboard → API Keys
+  const API_BASE        = 'https://YOUR-RENDER-URL.onrender.com/api'; // Your backend
 
+  const PLANS = {
+    pro:  { title: 'Pro — 7-Day Free Trial',        sub: 'Then ₹2,499/mo. Cancel anytime.',              planId: 'plan_YOUR_PRO_PLAN_ID'  },
+    team: { title: 'Team Plan — 7-Day Free Trial',  sub: 'Then ₹6,499/mo for 5 seats. Cancel anytime.',  planId: 'plan_YOUR_TEAM_PLAN_ID' }
+  };
+
+  let currentPlan = 'pro';
+
+  // ─── FREE CREDITS ────────────────────────────────────────
   let creditsLeft = parseInt(localStorage.getItem('rfCredits') ?? '5');
-  let lastReset = localStorage.getItem('rfReset');
-  const today = new Date().toDateString();
-  if (lastReset !== today) {
+  if (localStorage.getItem('rfReset') !== new Date().toDateString()) {
     creditsLeft = 5;
     localStorage.setItem('rfCredits', '5');
-    localStorage.setItem('rfReset', today);
+    localStorage.setItem('rfReset', new Date().toDateString());
   }
+  document.getElementById('credits-count').textContent   = creditsLeft + ' left today';
+  document.getElementById('credits-display').textContent = creditsLeft + ' free credits remaining';
 
-  // ─── STRIPE SETUP ───────────────────────────────────────
-  let stripe, cardElement, currentPlan;
-  try {
-    stripe = Stripe(STRIPE_PUBLIC_KEY);
-    const elements = stripe.elements({ appearance: { theme: 'night' } });
-    cardElement = elements.create('card', {
-      style: { base: { color: '#e8e8f0', fontSize: '15px', '::placeholder': { color: '#8888a0' } } }
-    });
-    document.getElementById('payment-modal').addEventListener('click', () => {
-      try { cardElement.mount('#card-element'); } catch(e) {}
-    });
-    cardElement.on('change', e => {
-      document.getElementById('card-errors').textContent = e.error?.message ?? '';
-    });
-  } catch(e) { console.warn('Stripe not configured yet:', e); }
-
-  // ─── GENERATE EMAIL ─────────────────────────────────────
+  // ─── EMAIL GENERATION ────────────────────────────────────
   async function generateEmail() {
-    if (creditsLeft <= 0) {
-      showToast('No free credits left today. Upgrade for unlimited!', 'error');
-      openModal('pro');
-      return;
-    }
+    if (creditsLeft <= 0) { showToast('No credits left today. Upgrade for unlimited!', 'error'); openModal('pro'); return; }
 
-    const sender = document.getElementById('sender-name').value.trim();
     const company = document.getElementById('prospect-company').value.trim();
-    const role = document.getElementById('prospect-role').value.trim();
     const product = document.getElementById('product').value.trim();
-    const pain = document.getElementById('pain-point').value.trim();
-    const tone = document.getElementById('tone').value;
-    const cta = document.getElementById('cta').value;
-
-    if (!company || !product) {
-      showToast('Please fill in at least the prospect company and your product.', 'error');
-      return;
-    }
+    if (!company || !product) { showToast('Please fill in the prospect company and your product.', 'error'); return; }
 
     const btn = document.getElementById('gen-btn');
-    const label = document.getElementById('gen-label');
     btn.disabled = true;
-    label.innerHTML = '<div class="spinner"></div> Generating...';
-
+    document.getElementById('gen-label').innerHTML = '<div class="spinner"></div> Generating...';
     const output = document.getElementById('output');
     output.innerHTML = '<span class="typing">Crafting your personalized email</span>';
 
-    const ctaMap = {
-      '15min': 'book a quick 15-minute call this week',
-      'demo': 'schedule a 20-minute product demo',
-      'reply': 'reply with one word: Interested',
-      'trial': 'start a free trial today'
-    };
-    const toneMap = {
-      direct: 'direct, concise, no fluff — respect their time',
-      friendly: 'friendly and conversational like a warm intro from a mutual connection',
-      professional: 'formal and professional like a Fortune 500 exec',
-      challenger: 'provocative and challenger-style — make them think differently'
-    };
+    const ctaMap = { '15min':'book a quick 15-minute call this week', demo:'schedule a 20-minute product demo', reply:'reply with one word: Interested', trial:'start a free trial today' };
+    const toneMap = { direct:'direct and concise — respect their time', friendly:'friendly and conversational', professional:'formal and professional', challenger:'provocative challenger-style' };
+    const tone = document.getElementById('tone').value;
+    const cta  = document.getElementById('cta').value;
 
-    const prompt = `You are an elite B2B cold email copywriter with a track record of 15%+ reply rates.
-
-Write a cold outreach email with these exact parameters:
-- Sender: ${sender || 'the sender'}
+    const prompt = `You are an elite B2B cold email copywriter with 15%+ reply rates.
+Write a cold email:
+- Sender: ${document.getElementById('sender-name').value || 'the sender'}
 - Prospect Company: ${company}
-- Prospect Role: ${role || 'decision maker'}
-- Product/Offer: ${product}
-- Pain Point: ${pain || 'operational inefficiency costing time and money'}
+- Prospect Role: ${document.getElementById('prospect-role').value || 'decision maker'}
+- Product: ${product}
+- Pain Point: ${document.getElementById('pain-point').value || 'operational inefficiency'}
 - Tone: ${toneMap[tone]}
 - CTA: ${ctaMap[cta]}
-
-RULES:
-1. Subject line: under 8 words, curiosity-gap or specific ROI hook
-2. Opening: Reference something specific about their company (recent growth, industry trend, their role challenge) — NOT generic flattery
-3. Body: 2-3 SHORT paragraphs max. Lead with their pain, not your features.
-4. One crystal-clear CTA
-5. Total length: under 150 words for the body
-6. PS line: add a disarming, human PS that builds credibility
-
-Format:
-Subject: [subject line]
----
-[email body]
-
-PS: [PS line]`;
+Rules: Subject under 8 words. Opening specific to their company. Body max 150 words. One clear CTA. Add PS line.
+Format: Subject: [line]\n---\n[body]\nPS: [line]`;
 
     try {
-      // Try Anthropic API via artifact
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          messages: [{ role: "user", content: prompt }]
-        })
-      });
-
-      const data = await response.json();
-      const emailText = data.content?.[0]?.text ?? '';
-
-      if (emailText) {
-        typeText(output, emailText);
-        creditsLeft--;
-        localStorage.setItem('rfCredits', creditsLeft.toString());
-        document.getElementById('credits-count').textContent = creditsLeft + ' left today';
-        document.getElementById('credits-display').textContent = creditsLeft + ' free credits remaining';
-        document.getElementById('copy-btn').style.display = 'block';
-      } else {
-        throw new Error('No content returned');
-      }
-    } catch(err) {
-      // Fallback: generate locally using templates
-      const fallbackEmail = generateFallback(company, role, product, pain, tone, ctaMap[cta]);
-      typeText(output, fallbackEmail);
-      creditsLeft--;
-      localStorage.setItem('rfCredits', creditsLeft.toString());
-      document.getElementById('credits-count').textContent = creditsLeft + ' left today';
-      document.getElementById('copy-btn').style.display = 'block';
+      const res = await fetch(`${API_BASE}/generate`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, tier:'free' }) });
+      const d = await res.json();
+      if (d.email) { typeText(output, d.email); } else throw new Error();
+    } catch {
+      const openers = { direct:`Noticed ${company} is scaling fast — worth 30 seconds of your time.`, friendly:`Hey! Came across ${company} and was impressed by what you're building.`, professional:`I'm reaching out because ${company}'s trajectory aligns closely with what we deliver.`, challenger:`Most companies at ${company}'s stage are leaving serious revenue on the table.` };
+      typeText(output, `Subject: Quick question about ${company}\n---\n${openers[tone]}\n\n${document.getElementById('pain-point').value ? `The challenge I keep seeing: ${document.getElementById('pain-point').value}. It costs more than most realise.` : `Manual processes are consistently killing velocity at companies like ${company}.`}\n\n${product} solves this — typically cutting overhead by 60% in 30 days.\n\nWorth a chat to ${ctaMap[cta]}?\n\n[Your Name]\n\nPS: Reaching out just to you — this problem seems particularly relevant to your role.`);
     }
 
+    creditsLeft--;
+    localStorage.setItem('rfCredits', creditsLeft.toString());
+    document.getElementById('credits-count').textContent   = creditsLeft + ' left today';
+    document.getElementById('credits-display').textContent = creditsLeft + ' free credits remaining';
+    document.getElementById('copy-btn').style.display = 'block';
     btn.disabled = false;
-    label.innerHTML = '⚡ Generate Another Email';
-  }
-
-  function generateFallback(company, role, product, pain, tone, cta) {
-    const openers = {
-      direct: `Noticed ${company} is scaling fast — congrats on the growth.`,
-      friendly: `Hey! Came across ${company} and was genuinely impressed by what you're building.`,
-      professional: `I'm reaching out because ${company}'s trajectory aligns closely with the outcomes our platform delivers.`,
-      challenger: `Most companies at ${company}'s stage are leaving serious revenue on the table. Here's why.`
-    };
-    return `Subject: Quick question about ${company}'s pipeline
----
-${openers[tone]}
-
-${pain ? `The challenge I see with ${role || 'teams like yours'}: ${pain}. It's costing more than most realize.` : `${role || 'Leaders'} at companies like ${company} are consistently telling me the same thing: manual processes are killing velocity.`}
-
-${product} solves this specifically — typically cutting that overhead by 60% in the first 30 days. No implementation headache.
-
-Would it make sense to ${cta}? I have a few slots this week.
-
-[Your Name]
-
-PS: I'm not sending this to your whole team — just you, because this problem seems particularly relevant to your role.`;
+    document.getElementById('gen-label').innerHTML = '⚡ Generate Another Email';
   }
 
   function typeText(el, text) {
-    el.innerHTML = '';
-    let i = 0;
-    el.classList.add('typing');
-    const interval = setInterval(() => {
-      el.textContent += text[i];
-      i++;
-      if (i >= text.length) {
-        clearInterval(interval);
-        el.classList.remove('typing');
-      }
-    }, 12);
+    el.innerHTML = ''; el.classList.add('typing'); let i = 0;
+    const iv = setInterval(() => { el.textContent += text[i++]; if (i >= text.length) { clearInterval(iv); el.classList.remove('typing'); } }, 12);
   }
 
-  // ─── COPY ────────────────────────────────────────────────
   function copyEmail() {
-    const text = document.getElementById('output').textContent;
-    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard! ✓', 'success'));
+    navigator.clipboard.writeText(document.getElementById('output').textContent).then(() => showToast('Copied! ✓', 'success'));
   }
 
   // ─── MODAL ───────────────────────────────────────────────
-  const plans = {
-    starter: { title: 'Start For Free', sub: 'No credit card required.', price: '' },
-    pro: { title: 'Pro — 7-Day Free Trial', sub: 'Then $29/mo. Cancel anytime.', price: '$29/mo after trial' },
-    team: { title: 'Team Plan — 7-Day Free Trial', sub: 'Then $79/mo for 5 seats. Cancel anytime.', price: '$79/mo after trial' }
-  };
-
   function openModal(plan) {
+    if (plan === 'starter') { document.getElementById('demo').scrollIntoView({behavior:'smooth'}); return; }
     currentPlan = plan;
-    if (plan === 'starter') {
-      document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-    document.getElementById('modal-title').textContent = plans[plan].title;
-    document.getElementById('modal-sub').textContent = plans[plan].sub;
+    document.getElementById('modal-title').textContent = PLANS[plan].title;
+    document.getElementById('modal-sub').textContent   = PLANS[plan].sub;
+    document.getElementById('modal-errors').textContent = '';
     document.getElementById('payment-modal').classList.add('active');
-    setTimeout(() => { try { cardElement.mount('#card-element'); } catch(e) {} }, 100);
   }
 
-  function closeModal() {
-    document.getElementById('payment-modal').classList.remove('active');
-  }
+  function closeModal() { document.getElementById('payment-modal').classList.remove('active'); }
 
-  // ─── PAYMENT ────────────────────────────────────────────
-  document.getElementById('payment-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
+  // ─── RAZORPAY ────────────────────────────────────────────
+  async function startRazorpay() {
+    const name  = document.getElementById('user-name').value.trim();
+    const email = document.getElementById('user-email').value.trim();
+    const phone = document.getElementById('user-phone').value.trim();
+    const errEl = document.getElementById('modal-errors');
+
+    if (!name || !email || !phone) { errEl.textContent = 'Please fill in all fields.'; return; }
+    if (!/\S+@\S+\.\S+/.test(email)) { errEl.textContent = 'Please enter a valid email.'; return; }
+
+    errEl.textContent = '';
     const btn = document.getElementById('pay-btn');
-    btn.disabled = true;
-    btn.textContent = 'Processing...';
+    btn.disabled = true; btn.textContent = 'Creating subscription...';
 
     try {
-      const { paymentMethod, error } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: cardElement,
-        billing_details: {
-          name: document.getElementById('cardholder-name').value,
-          email: document.getElementById('cardholder-email').value
-        }
-      });
-
-      if (error) throw error;
-
-      // Send to your backend
-      const res = await fetch(`${API_BASE}/subscribe`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          paymentMethodId: paymentMethod.id,
-          plan: currentPlan,
-          email: document.getElementById('cardholder-email').value,
-          name: document.getElementById('cardholder-name').value
-        })
-      });
-
+      const res  = await fetch(`${API_BASE}/subscribe`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ plan: currentPlan, name, email, phone }) });
       const data = await res.json();
-      if (data.success) {
-        closeModal();
-        showToast('🎉 Trial started! Check your email for next steps.', 'success');
-        localStorage.setItem('rfPlan', currentPlan);
-        localStorage.setItem('rfCredits', '9999');
-        document.getElementById('credits-count').textContent = 'Unlimited';
-      } else {
-        throw new Error(data.error ?? 'Payment failed');
-      }
-    } catch(err) {
-      document.getElementById('card-errors').textContent = err.message;
+      if (!data.subscriptionId) throw new Error(data.error || 'Could not create subscription');
+
+      closeModal();
+      const rzp = new Razorpay({
+        key: RAZORPAY_KEY_ID,
+        subscription_id: data.subscriptionId,
+        name: 'ReplyForge',
+        description: PLANS[currentPlan].sub,
+        prefill: { name, email, contact: phone },
+        theme: { color: '#6c63ff' },
+        handler: (response) => onPaymentSuccess(response, email, currentPlan)
+      });
+      rzp.on('payment.failed', (r) => { showToast(r.error.description || 'Payment failed', 'error'); });
+      rzp.open();
+    } catch (err) {
+      errEl.textContent = err.message;
     }
-
-    btn.disabled = false;
-    btn.textContent = 'Start Free Trial →';
-  });
-
-  // ─── TOAST ───────────────────────────────────────────────
-  function showToast(msg, type = 'success') {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = `toast ${type} show`;
-    setTimeout(() => t.classList.remove('show'), 3500);
+    btn.disabled = false; btn.textContent = 'Continue to Payment →';
   }
 
-  // ─── INIT ─────────────────────────────────────────────────
-  document.getElementById('credits-count').textContent = creditsLeft + ' left today';
-  document.getElementById('credits-display').textContent = creditsLeft + ' free credits remaining';
+  async function onPaymentSuccess(response, email, plan) {
+    try {
+      await fetch(`${API_BASE}/verify-payment`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ...response, email, plan }) });
+    } catch {}
+    showToast('🎉 Trial started! Check your email.', 'success');
+    localStorage.setItem('rfPlan', plan);
+    localStorage.setItem('rfCredits', '9999');
+    document.getElementById('credits-count').textContent   = 'Unlimited';
+    document.getElementById('credits-display').textContent = 'Unlimited (Pro)';
+  }
+
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.className = `toast ${type} show`;
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
 </script>
 </body>
 </html>
