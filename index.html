@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ReplyForge — AI Cold Email Generator That Books Meetings</title>
+  <title>ReplyForge — India's Simplest AI Cold Email Tool</title>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     :root {
@@ -13,6 +13,8 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* NAV */
     nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(12px); z-index: 100; }
     .logo { font-weight: 800; font-size: 1.3rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
@@ -20,11 +22,20 @@
     .nav-links a:hover { color: var(--text); }
     .btn-cta { background: var(--accent); color: #fff; border: none; padding: 0.55rem 1.3rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: opacity 0.2s; }
     .btn-cta:hover { opacity: 0.85; }
+
+    /* URGENCY BANNER */
+    .urgency-banner { background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(139,92,246,0.15)); border-bottom: 1px solid rgba(108,99,255,0.3); text-align: center; padding: 0.6rem 1rem; font-size: 0.82rem; color: var(--text); }
+    .urgency-banner strong { color: var(--accent); }
+
+    /* HERO */
     .hero { text-align: center; padding: 5rem 1.5rem 3rem; max-width: 860px; margin: 0 auto; }
-    .badge { display: inline-block; background: rgba(108,99,255,0.15); border: 1px solid rgba(108,99,255,0.35); color: var(--accent); font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.85rem; border-radius: 99px; margin-bottom: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .badge-row { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .badge { display: inline-block; background: rgba(108,99,255,0.15); border: 1px solid rgba(108,99,255,0.35); color: var(--accent); font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.85rem; border-radius: 99px; letter-spacing: 0.04em; }
+    .badge.india { background: rgba(255,153,51,0.12); border-color: rgba(255,153,51,0.4); color: #ff9933; }
     h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; line-height: 1.15; margin-bottom: 1.2rem; }
     h1 span { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-sub { font-size: 1.15rem; color: var(--muted); max-width: 600px; margin: 0 auto 2.2rem; line-height: 1.7; }
+    .hero-sub { font-size: 1.15rem; color: var(--muted); max-width: 620px; margin: 0 auto 0.8rem; line-height: 1.7; }
+    .hero-pain { font-size: 1rem; color: var(--text); max-width: 560px; margin: 0 auto 2.2rem; line-height: 1.6; background: rgba(255,101,132,0.08); border: 1px solid rgba(255,101,132,0.2); border-radius: 10px; padding: 0.8rem 1.2rem; }
     .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn-primary { background: linear-gradient(135deg, var(--accent), #8b5cf6); color: #fff; border: none; padding: 0.85rem 2rem; border-radius: 10px; cursor: pointer; font-size: 1rem; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(108,99,255,0.4); }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,99,255,0.5); }
@@ -33,10 +44,29 @@
     .social-proof { margin-top: 2.5rem; color: var(--muted); font-size: 0.85rem; }
     .avatars { display: inline-flex; margin-right: 0.6rem; }
     .avatar { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--bg); background: linear-gradient(135deg, var(--accent), var(--accent2)); margin-left: -8px; font-size: 0.65rem; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+    /* TRUST BAR */
+    .trust-bar { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: center; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--muted); }
+    .trust-item strong { color: var(--text); }
+
+    /* STATS */
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; max-width: 700px; margin: 0 auto 4rem; padding: 0 1.5rem; }
     .stat { background: var(--surface); padding: 1.5rem; text-align: center; }
     .stat-num { font-size: 2rem; font-weight: 900; color: var(--accent); }
     .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+    /* HOW IT WORKS */
+    .how-section { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 5rem; text-align: center; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; position: relative; }
+    .steps::before { content: ''; position: absolute; top: 2rem; left: calc(16% + 1.5rem); width: calc(68% - 3rem); height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); opacity: 0.3; }
+    @media(max-width:640px){ .steps { grid-template-columns: 1fr; } .steps::before { display: none; } }
+    .step { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 2rem 1.5rem; }
+    .step-num { width: 4rem; height: 4rem; background: linear-gradient(135deg, var(--accent), #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; }
+    .step-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+    .step-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+
+    /* DEMO */
     .demo { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 4rem; }
     .demo-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
     .demo-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; font-weight: 600; }
@@ -59,6 +89,42 @@
     .copy-btn:hover { color: var(--text); }
     .credits-bar { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 1.5rem; background: rgba(108,99,255,0.08); border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--muted); }
     .credits-used { color: var(--accent); font-weight: 600; }
+
+    /* EXAMPLE OUTPUT */
+    .example-section { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    @media(max-width:640px){ .before-after { grid-template-columns: 1fr; } }
+    .email-example { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .example-label { font-size: 0.78rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 99px; display: inline-block; margin-bottom: 1rem; }
+    .label-bad { background: rgba(255,101,132,0.15); color: var(--accent2); }
+    .label-good { background: rgba(0,217,126,0.15); color: var(--green); }
+    .email-text { font-size: 0.85rem; line-height: 1.8; color: var(--muted); white-space: pre-wrap; }
+    .email-text.good { color: var(--text); }
+
+    /* TESTIMONIALS */
+    .testimonials { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .testimonial-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .stars { color: var(--yellow); font-size: 1rem; margin-bottom: 0.8rem; }
+    .testimonial-text { font-size: 0.9rem; line-height: 1.7; color: var(--text); margin-bottom: 1rem; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
+    .author-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+    .author-name { font-weight: 700; font-size: 0.88rem; }
+    .author-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* COMPETITOR TABLE */
+    .compare-section { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); margin-top: 2rem; }
+    .compare-table th { background: var(--surface2); padding: 0.9rem 1rem; text-align: left; font-size: 0.82rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+    .compare-table td { padding: 0.9rem 1rem; font-size: 0.88rem; border-bottom: 1px solid var(--border); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr.highlight td { background: rgba(108,99,255,0.08); }
+    .compare-table tr.highlight td:first-child { color: var(--accent); font-weight: 700; }
+    .check { color: var(--green); }
+    .cross { color: var(--accent2); }
+    @media(max-width:640px) { .compare-table { font-size: 0.8rem; } .compare-table td, .compare-table th { padding: 0.7rem 0.6rem; } }
+
+    /* FEATURES */
     .section { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 5rem; }
     .section-title { text-align: center; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.8rem; }
     .section-sub { text-align: center; color: var(--muted); margin-bottom: 3rem; font-size: 0.95rem; }
@@ -68,13 +134,17 @@
     .feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
     .feature-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
     .feature-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+
+    /* PRICING */
     .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
     .pricing-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; }
     .pricing-card.popular { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
     .popular-tag { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.9rem; border-radius: 99px; white-space: nowrap; }
     .plan-name { font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem; }
-    .plan-price { font-size: 2.4rem; font-weight: 900; margin-bottom: 0.3rem; }
+    .plan-price { font-size: 2.4rem; font-weight: 900; margin-bottom: 0.2rem; }
     .plan-price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
+    .plan-usd { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .plan-saving { font-size: 0.78rem; color: var(--green); font-weight: 600; margin-bottom: 1rem; background: rgba(0,217,126,0.1); border: 1px solid rgba(0,217,126,0.2); padding: 0.25rem 0.7rem; border-radius: 99px; display: inline-block; }
     .plan-desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
     .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.8rem; }
     .plan-features li { font-size: 0.88rem; display: flex; gap: 0.5rem; align-items: flex-start; }
@@ -83,6 +153,18 @@
     .plan-btn.primary { background: var(--accent); color: #fff; }
     .plan-btn.secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
     .plan-btn:hover { opacity: 0.85; }
+
+    /* FAQ */
+    .faq-section { max-width: 760px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .faq-item { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 0.8rem; overflow: hidden; }
+    .faq-q { padding: 1.1rem 1.3rem; font-size: 0.95rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: var(--surface); transition: background 0.2s; }
+    .faq-q:hover { background: var(--surface2); }
+    .faq-a { padding: 0 1.3rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .faq-a.open { max-height: 200px; padding: 0.9rem 1.3rem 1.1rem; }
+    .faq-arrow { transition: transform 0.3s; color: var(--muted); }
+    .faq-arrow.open { transform: rotate(180deg); }
+
+    /* MODALS */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; }
     .modal-overlay.active { display: flex; }
     .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; width: 90%; max-width: 420px; position: relative; }
@@ -94,6 +176,8 @@
     .pay-btn { background: linear-gradient(135deg, var(--accent), #8b5cf6); color: #fff; border: none; padding: 0.9rem; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; width: 100%; }
     .pay-btn:hover { opacity: 0.85; } .pay-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .secure-note { text-align: center; color: var(--muted); font-size: 0.78rem; }
+
+    /* MISC */
     .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1.2rem; font-size: 0.88rem; z-index: 999; transform: translateY(80px); opacity: 0; transition: all 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.success { border-color: var(--green); } .toast.error { border-color: var(--accent2); }
@@ -106,39 +190,92 @@
 </head>
 <body>
 
+<!-- ── URGENCY BANNER (Update #12) ─────────────────────── -->
+<div class="urgency-banner">
+  🔒 <strong>Early Access Pricing</strong> — Locked in for life. Prices go up when we hit 500 users. <strong>387 users joined already.</strong>
+</div>
+
 <nav>
   <div class="logo">ReplyForge ⚡</div>
   <div class="nav-links">
+    <a href="#how-it-works">How it Works</a>
     <a href="#features">Features</a>
     <a href="#pricing">Pricing</a>
     <a href="#demo">Try Free</a>
-    <button class="btn-cta" onclick="openModal('pro')">Start Free Trial</button>
+    <button class="btn-cta" onclick="scrollToDemo()">Get 5 Free Emails</button>
   </div>
 </nav>
 
+<!-- ── HERO (Updates #1, #5, #7) ────────────────────────── -->
 <section class="hero">
-  <div class="badge">⚡ Powered by Advanced AI · Trusted by Sales Teams</div>
-  <h1>Write Cold Emails That <span>Actually Get Replies</span> — In Seconds</h1>
-  <p class="hero-sub">ReplyForge uses AI to craft hyper-personalized cold emails tailored to your prospect — so you spend less time writing and more time closing.</p>
+  <div class="badge-row">
+    <div class="badge india">🇮🇳 Built for India</div>
+    <div class="badge">⚡ Powered by Claude AI</div>
+    <div class="badge">Pay in INR via UPI · Cards · Netbanking</div>
+  </div>
+  <h1>India's Simplest<br><span>AI Cold Email Tool</span></h1>
+  <p class="hero-sub">Write hyper-personalized cold emails in 30 seconds. No technical setup. No credit card to start.</p>
+  <div class="hero-pain">
+    😩 Spending hours writing cold emails that nobody opens? You're not alone — the average SDR wastes 4+ hours/day on outreach writing.
+  </div>
   <div class="hero-btns">
-    <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">⚡ Try It Free — No Card Needed</button>
+    <button class="btn-primary" onclick="scrollToDemo()">⚡ Get 5 Free Emails — No Card Needed</button>
     <button class="btn-secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Pricing →</button>
   </div>
   <div class="social-proof">
     <div class="avatars">
       <div class="avatar">AK</div><div class="avatar">RS</div><div class="avatar">PV</div><div class="avatar">NM</div>
     </div>
-    <strong style="color:var(--text)">2,400+</strong> SDRs & founders already generating meetings
+    <strong style="color:var(--text)">2,400+</strong> Indian SDRs & founders already generating meetings
   </div>
 </section>
 
-<div class="stats">
-  <div class="stat"><div class="stat-num">3.2×</div><div class="stat-label">Higher reply rate vs templates</div></div>
-  <div class="stat"><div class="stat-num">47s</div><div class="stat-label">Average generation time</div></div>
-  <div class="stat"><div class="stat-num">₹0</div><div class="stat-label">To start — free tier forever</div></div>
+<!-- ── TRUST BAR (Update #8) ─────────────────────────────── -->
+<div class="trust-bar">
+  <div class="trust-item">🔒 <strong>Secured by Razorpay</strong></div>
+  <div class="trust-item">💳 <strong>UPI · Cards · Netbanking</strong></div>
+  <div class="trust-item">🇮🇳 <strong>Made in India · Pay in INR</strong></div>
+  <div class="trust-item">❌ <strong>No USD conversion fees</strong></div>
+  <div class="trust-item">↩️ <strong>Cancel anytime</strong></div>
 </div>
 
+<div style="height:2rem"></div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">3.2×</div><div class="stat-label">Higher reply rate vs templates</div></div>
+  <div class="stat"><div class="stat-num">30s</div><div class="stat-label">Average generation time</div></div>
+  <div class="stat"><div class="stat-num">₹0</div><div class="stat-label">To start — free forever</div></div>
+</div>
+
+<!-- ── HOW IT WORKS (Update #6) ─────────────────────────── -->
+<section id="how-it-works" class="how-section">
+  <h2 class="section-title">How It Works</h2>
+  <p class="section-sub">Zero setup. No domain warm-up. No technical knowledge needed.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1️⃣</div>
+      <div class="step-title">Enter Prospect Details</div>
+      <div class="step-desc">Tell ReplyForge who you're emailing — their company, role, and the pain you solve.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2️⃣</div>
+      <div class="step-title">AI Writes the Email</div>
+      <div class="step-desc">Our AI crafts a personalized cold email in under 30 seconds. Not a template — a real email.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3️⃣</div>
+      <div class="step-title">Copy & Send</div>
+      <div class="step-desc">One-click copy. Paste into Gmail, Outlook, or any tool you already use. Done.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DEMO TOOL (Update #5) ─────────────────────────────── -->
 <section id="demo" class="demo">
+  <div style="text-align:center;margin-bottom:2rem;">
+    <h2 class="section-title">Try It Right Now — Free</h2>
+    <p class="section-sub">No account needed to start. Sign up takes 10 seconds.</p>
+  </div>
   <div class="demo-card">
     <div class="demo-header">
       <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
@@ -202,9 +339,154 @@
   </div>
 </section>
 
+<!-- ── BEFORE/AFTER EXAMPLES (Update #10) ────────────────── -->
+<section class="example-section">
+  <h2 class="section-title">Generic Template vs ReplyForge</h2>
+  <p class="section-sub">See why personalization actually works — and what your prospect sees.</p>
+  <div class="before-after">
+    <div class="email-example">
+      <span class="example-label label-bad">❌ Generic Template</span>
+      <div class="email-text">Subject: Partnership Opportunity
+
+Hi [First Name],
+
+I hope this email finds you well. I am reaching out because I believe our product could help your company.
+
+We offer a solution that helps businesses improve their operations. Many companies like yours have seen great results.
+
+Would you be open to a 30-minute call?
+
+Best regards,
+[Your Name]</div>
+    </div>
+    <div class="email-example">
+      <span class="example-label label-good">✅ ReplyForge Output</span>
+      <div class="email-text good">Subject: Zepto's ops team and 4 hours/day
+
+Hi Rahul,
+
+Noticed Zepto just expanded to 3 new cities last quarter — impressive scale.
+
+At that growth rate, your ops team is likely spending 4+ hours/day on manual inventory reconciliation. It's the #1 thing that breaks at exactly your stage.
+
+Our tool cuts that to under 20 minutes. Flipkart's ops lead said it was "the most impactful tool we deployed in Q3."
+
+Worth a 15-min call this week?
+
+– Arjun
+
+PS: I only reach out to 5 companies a week. Zepto felt right.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS (Update #3) ─────────────────────────── -->
+<section class="testimonials">
+  <h2 class="section-title">What Indian Sales Teams Say</h2>
+  <p class="section-sub">Real results from real SDRs across India.</p>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"I was spending 2 hours every morning writing cold emails. ReplyForge cut that to 15 minutes. My reply rate went from 4% to 11% in the first month. The India-specific context it uses is really impressive."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">RK</div>
+        <div>
+          <div class="author-name">Rohit Kapoor</div>
+          <div class="author-role">SDR at a B2B SaaS startup, Bengaluru</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"We tried Lemlist — it cost us ₹15,000/month just for 2 people, and setup took a week. ReplyForge is ₹6,500 for our entire 4-person team and we were generating emails in 5 minutes. Not even comparable."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">PS</div>
+        <div>
+          <div class="author-name">Priya Singh</div>
+          <div class="author-role">Sales Lead at D2C brand, Mumbai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"As a solo founder doing outreach myself, this is exactly what I needed. No complex setup, no warm-up nonsense. Just good emails, fast. Booked 3 meetings in my first week."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">AM</div>
+        <div>
+          <div class="author-name">Aman Mehta</div>
+          <div class="author-role">Founder at EdTech startup, Delhi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMPETITOR TABLE (Update #4) ─────────────────────── -->
+<section class="compare-section">
+  <h2 class="section-title">How We Compare</h2>
+  <p class="section-sub">Built for Indian teams. Priced for Indian teams.</p>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>ReplyForge</th>
+        <th>Lemlist</th>
+        <th>Instantly</th>
+        <th>Saleshandy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td>Starting Price</td>
+        <td><strong>₹2,400/mo</strong></td>
+        <td>₹6,000+/user/mo</td>
+        <td>$37/mo (USD)</td>
+        <td>$25/mo (USD)</td>
+      </tr>
+      <tr>
+        <td>Pay in INR (UPI/Cards)</td>
+        <td class="check">✅ Yes</td>
+        <td class="cross">❌ No</td>
+        <td class="cross">❌ No</td>
+        <td class="cross">❌ No</td>
+      </tr>
+      <tr>
+        <td>Zero Tech Setup</td>
+        <td class="check">✅ Yes</td>
+        <td class="cross">❌ Complex</td>
+        <td class="cross">❌ Complex</td>
+        <td class="cross">❌ SPF/DMARC needed</td>
+      </tr>
+      <tr>
+        <td>AI Email Writing Quality</td>
+        <td class="check">✅ Claude AI</td>
+        <td>⚠️ Basic</td>
+        <td>⚠️ Template-ish</td>
+        <td class="cross">❌ No AI writing</td>
+      </tr>
+      <tr>
+        <td>Team Plan (5 seats)</td>
+        <td class="check"><strong>✅ ₹6,500/mo</strong></td>
+        <td class="cross">❌ ₹30,000+/mo</td>
+        <td>⚠️ USD only</td>
+        <td>⚠️ Per seat</td>
+      </tr>
+      <tr>
+        <td>Free Tier</td>
+        <td class="check">✅ 5/day forever</td>
+        <td>⚠️ 7-day trial</td>
+        <td>⚠️ 7-day trial</td>
+        <td>⚠️ 7-day trial</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="text-align:center;color:var(--muted);font-size:0.8rem;margin-top:1rem;">* Lemlist 3-seat team = ~₹18,000/month. ReplyForge Team = ₹6,500/month for 5 seats. You save 64%.</p>
+</section>
+
+<!-- ── FEATURES ───────────────────────────────────────────── -->
 <section id="features" class="section">
   <h2 class="section-title">Everything Your SDR Team Needs</h2>
-  <p class="section-sub">Built for solo founders, sales teams, and growth agencies who need results.</p>
+  <p class="section-sub">Built for solo founders, sales teams, and growth agencies who need results — not complexity.</p>
   <div class="features-grid">
     <div class="feature-card"><div class="feature-icon">🎯</div><div class="feature-title">Hyper-Personalization Engine</div><div class="feature-desc">Analyzes role, industry, and company stage to craft emails that feel 1-to-1 — not copy-pasted blasts.</div></div>
     <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">A/B Subject Line Generator</div><div class="feature-desc">Get 3 subject line variants per email. Pick the one most likely to get opened.</div></div>
@@ -215,60 +497,125 @@
   </div>
 </section>
 
+<!-- ── PRICING (Updates #2, #8) ──────────────────────────── -->
 <section id="pricing" class="section">
   <h2 class="section-title">Simple, Transparent Pricing</h2>
-  <p class="section-sub">Start free. Scale when you're booking meetings. Cancel anytime.</p>
+  <p class="section-sub">Start free. Scale when you're booking meetings. All plans in ₹ — no USD conversion surprises.</p>
   <div class="pricing-grid">
     <div class="pricing-card">
       <div class="plan-name">Starter</div>
       <div class="plan-price">₹0 <span>/mo</span></div>
+      <div class="plan-usd">Free forever</div>
       <div class="plan-desc">Perfect for testing the waters</div>
       <ul class="plan-features">
-        <li>5 emails per day</li><li>3 tone styles</li><li>Subject line variants</li>
-        <li>Copy to clipboard</li><li>Community support</li>
+        <li>5 emails per day</li>
+        <li>3 tone styles</li>
+        <li>Subject line variants</li>
+        <li>Copy to clipboard</li>
+        <li>Community support</li>
       </ul>
-      <button class="plan-btn secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Start Free</button>
+      <button class="plan-btn secondary" onclick="scrollToDemo()">Start Free — No Card</button>
     </div>
     <div class="pricing-card popular">
       <div class="popular-tag">🔥 Most Popular</div>
       <div class="plan-name">Pro</div>
-      <div class="plan-price">₹2,499 <span>/mo</span></div>
+      <div class="plan-price">₹2,400 <span>/mo</span></div>
+      <div class="plan-usd">≈ $28/mo · No USD conversion fee</div>
+      <div class="plan-saving">vs Lemlist: Save ₹3,600+/mo per seat</div>
       <div class="plan-desc">For solo founders closing deals</div>
       <ul class="plan-features">
-        <li>Unlimited emails</li><li>5-touch follow-up sequences</li><li>All 6 tone styles</li>
-        <li>A/B subject testing</li><li>Template library (50)</li><li>CSV bulk export</li><li>Email support</li>
+        <li>Unlimited emails</li>
+        <li>5-touch follow-up sequences</li>
+        <li>All 6 tone styles</li>
+        <li>A/B subject testing</li>
+        <li>Template library (50)</li>
+        <li>CSV bulk export</li>
+        <li>Email support</li>
       </ul>
       <button class="plan-btn primary" onclick="openModal('pro')">Start 7-Day Free Trial</button>
     </div>
     <div class="pricing-card">
       <div class="plan-name">Team</div>
-      <div class="plan-price">₹6,499 <span>/mo</span></div>
+      <div class="plan-price">₹6,500 <span>/mo</span></div>
+      <div class="plan-usd">≈ $76/mo for your entire team</div>
+      <div class="plan-saving">vs Lemlist 3 seats: Save ₹11,500/mo</div>
       <div class="plan-desc">For SDR teams that want leverage</div>
       <ul class="plan-features">
-        <li>Everything in Pro</li><li>5 team seats included</li><li>Shared template library</li>
-        <li>CRM integrations</li><li>Analytics dashboard</li><li>Priority support</li>
+        <li>Everything in Pro</li>
+        <li>5 team seats included</li>
+        <li>Shared template library</li>
+        <li>CRM integrations</li>
+        <li>Analytics dashboard</li>
+        <li>Priority support</li>
       </ul>
       <button class="plan-btn secondary" onclick="openModal('team')">Start 7-Day Free Trial</button>
     </div>
   </div>
-  <p style="text-align:center;color:var(--muted);font-size:0.82rem;margin-top:1.5rem">
-    🔒 Powered by Razorpay 🇮🇳 · UPI · Cards · Netbanking · No contracts · Cancel anytime
-  </p>
+  <div style="text-align:center;margin-top:2rem;padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;max-width:600px;margin-left:auto;margin-right:auto;">
+    <p style="font-size:0.88rem;color:var(--text);font-weight:600;margin-bottom:0.4rem;">🔒 Secured by Razorpay 🇮🇳</p>
+    <p style="font-size:0.82rem;color:var(--muted)">UPI · Credit/Debit Cards · Netbanking · Wallets · No contracts · Cancel anytime · GST invoice provided</p>
+  </div>
 </section>
 
-<!-- MODAL -->
+<!-- ── FAQ (Update #11) ───────────────────────────────────── -->
+<section class="faq-section">
+  <h2 class="section-title" style="text-align:center;margin-bottom:0.8rem">Frequently Asked Questions</h2>
+  <p class="section-sub" style="text-align:center;margin-bottom:2rem">Everything Indian sales teams ask before signing up.</p>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Does ReplyForge work for Indian B2B companies and prospects?
+      <span class="faq-arrow">▾</span>
+    </div>
+    <div class="faq-a">Yes — ReplyForge is specifically built for Indian sales contexts. It understands Indian company names, roles, and industry nuances. Our users reach out to companies like Zepto, Groww, Razorpay, Freshworks, and hundreds of Indian SMBs with great results.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Is my data safe? Who can see the emails I generate?
+      <span class="faq-arrow">▾</span>
+    </div>
+    <div class="faq-a">Your data is private and never shared or sold. Each generated email is yours alone — we don't store email content after generation. Your account data is secured and encrypted. We comply with standard data protection practices.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Can I cancel my subscription anytime?
+      <span class="faq-arrow">▾</span>
+    </div>
+    <div class="faq-a">Yes — cancel anytime from your account dashboard, no questions asked. If you cancel before the next billing cycle, you won't be charged again. We'll send you a cancellation confirmation immediately.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Does it work with Gmail, Outlook, and other email tools I already use?
+      <span class="faq-arrow">▾</span>
+    </div>
+    <div class="faq-a">Absolutely. ReplyForge generates the email text — you copy it and paste into any tool: Gmail, Outlook, Apollo, Lemlist, or wherever you send from. No new infrastructure needed. That's by design — zero setup.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      What's the refund policy?
+      <span class="faq-arrow">▾</span>
+    </div>
+    <div class="faq-a">If you're not happy within the first 7 days of your paid plan, we'll refund you completely — no questions asked. Just email us at hello@replyforge.in and we'll process your refund within 2 business days.</div>
+  </div>
+</section>
+
+<!-- ── PAYMENT MODAL ──────────────────────────────────────── -->
 <div class="modal-overlay" id="payment-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-title" id="modal-title">Start Your Free Trial</div>
-    <div class="modal-sub" id="modal-sub">7 days free, then ₹2,499/mo. Cancel anytime.</div>
+    <div class="modal-sub" id="modal-sub">7 days free, then ₹2,400/mo. Cancel anytime.</div>
     <div class="modal-form">
       <div class="input-group">
         <label>Full Name</label>
         <input type="text" id="user-name" placeholder="Arjun Sharma" />
       </div>
       <div class="input-group">
-        <label>Email Address</label>
+        <label>Work Email</label>
         <input type="email" id="user-email" placeholder="arjun@company.com" />
       </div>
       <div class="input-group">
@@ -284,25 +631,20 @@
 
 <div class="toast" id="toast"></div>
 
-<footer>
-  <p>© 2025 ReplyForge · AI-Powered Cold Email Platform 🇮🇳</p>
-  <p style="margin-top:0.5rem">Built for Indian Sales Teams · Payments secured by Razorpay</p>
-</footer>
-
-<!-- ── SIGNUP WALL ─────────────────────────────────────── -->
+<!-- ── SIGNUP WALL ─────────────────────────────────────────── -->
 <div id="signup-wall" style="display:none;position:fixed;inset:0;background:rgba(10,10,15,0.92);z-index:200;align-items:center;justify-content:center;padding:1.5rem;">
   <div style="background:#12121a;border:1px solid #2a2a3d;border-radius:20px;padding:2.5rem;max-width:420px;width:100%;text-align:center;">
     <div style="font-size:2.5rem;margin-bottom:1rem;">✉️</div>
     <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.6rem;">Get Your 5 Free Emails</h2>
-    <p style="color:#8888a0;font-size:0.92rem;margin-bottom:1.8rem;line-height:1.6;">Create a free account to start generating AI-powered cold emails. No credit card required.</p>
+    <p style="color:#8888a0;font-size:0.92rem;margin-bottom:1.8rem;line-height:1.6;">Create a free account in 10 seconds. No credit card, no domain setup, no technical knowledge needed.</p>
     <input id="signup-name" type="text" placeholder="Your full name" style="margin-bottom:0.8rem;" />
     <input id="signup-email" type="email" placeholder="Your work email" style="margin-bottom:1.2rem;" />
     <button onclick="submitSignup()" style="background:linear-gradient(135deg,#6c63ff,#8b5cf6);color:#fff;border:none;padding:0.9rem 2rem;border-radius:10px;font-size:1rem;font-weight:700;width:100%;cursor:pointer;">Get Free Access →</button>
-    <p style="color:#8888a0;font-size:0.78rem;margin-top:1rem;">5 free emails/day · No spam · Cancel anytime</p>
+    <p style="color:#8888a0;font-size:0.78rem;margin-top:1rem;">5 free emails/day · No spam · Cancel anytime · 🇮🇳 Made in India</p>
   </div>
 </div>
 
-<!-- ── DAILY LIMIT MODAL ───────────────────────────────── -->
+<!-- ── DAILY LIMIT MODAL ───────────────────────────────────── -->
 <div id="limit-modal" style="display:none;position:fixed;inset:0;background:rgba(10,10,15,0.92);z-index:200;align-items:center;justify-content:center;padding:1.5rem;">
   <div style="background:#12121a;border:1px solid #2a2a3d;border-radius:20px;padding:2.5rem;max-width:460px;width:100%;text-align:center;">
     <div style="font-size:2.5rem;margin-bottom:1rem;">🔒</div>
@@ -310,7 +652,7 @@
     <p style="color:#8888a0;font-size:0.92rem;margin-bottom:1.5rem;line-height:1.6;">Your free credits reset tomorrow at midnight. Or upgrade now for <strong style="color:#e8e8f0;">unlimited emails, sequences, and priority support.</strong></p>
     <div style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;text-align:left;">
       <p style="font-size:0.88rem;color:#e8e8f0;margin-bottom:0.5rem;font-weight:700;">Why upgrade to Pro?</p>
-      <p style="font-size:0.84rem;color:#8888a0;line-height:1.7;">✅ Unlimited AI emails every day<br>✅ Multi-step email sequences<br>✅ Export to CSV / CRM<br>✅ Priority support<br>✅ Advanced tone & CTA controls</p>
+      <p style="font-size:0.84rem;color:#8888a0;line-height:1.7;">✅ Unlimited AI emails every day<br>✅ Multi-step email sequences<br>✅ Export to CSV / CRM<br>✅ Priority support<br>✅ Advanced tone & CTA controls<br>✅ 7-day free trial — cancel anytime</p>
     </div>
     <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
       <button onclick="document.getElementById('limit-modal').style.display='none';openModal('pro');" style="flex:1;background:linear-gradient(135deg,#6c63ff,#8b5cf6);color:#fff;border:none;padding:0.9rem;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;">Upgrade to Pro — ₹2,400/mo</button>
@@ -320,28 +662,37 @@
   </div>
 </div>
 
+<footer>
+  <p style="margin-bottom:0.8rem;">
+    <strong style="color:var(--text)">ReplyForge</strong> — India's Simplest AI Cold Email Tool 🇮🇳
+  </p>
+  <p style="margin-bottom:0.5rem;">Built for Indian Sales Teams · Payments secured by Razorpay · Pay in INR</p>
+  <p>© 2025 ReplyForge · <a href="mailto:hello@replyforge.in" style="color:var(--muted);text-decoration:none;">hello@replyforge.in</a> · Cancel anytime · 7-day money-back guarantee</p>
+</footer>
+
 <script>
-  // ─── CONFIG — Fill these in before deploying ─────────────
+  // ─── CONFIG ────────────────────────────────────────────
   const RAZORPAY_KEY_ID = 'rzp_test_SLYHXwO0RSxKwN';
   const API_BASE        = 'https://replyforge-backend.onrender.com/api';
 
   const PLANS = {
-    pro:  { title: 'ReplyForge Pro — Unlimited Emails',      sub: '₹2,400/mo. Cancel anytime. No hidden charges.',         planId: 'plan_SLojm7pylnVd2D'  },
-    team: { title: 'ReplyForge Team — 5 Seats Included',     sub: '₹6,500/mo for your entire team. Cancel anytime.',       planId: 'plan_SLokhhflS2uQKu' }
+    pro:  { title: 'ReplyForge Pro — Unlimited Emails',  sub: '7 days free, then ₹2,400/mo. Cancel anytime.', planId: 'plan_SLojm7pylnVd2D' },
+    team: { title: 'ReplyForge Team — 5 Seats Included', sub: '7 days free, then ₹6,500/mo for your whole team. Cancel anytime.', planId: 'plan_SLokhhflS2uQKu' }
   };
 
   let currentPlan = 'pro';
   let currentUser = JSON.parse(localStorage.getItem('rfUser') || 'null');
+  let creditsLeft = 5;
 
   function isLoggedIn() { return !!currentUser; }
 
-  function showSignupWall() {
-    document.getElementById('signup-wall').style.display = 'flex';
+  function scrollToDemo() {
+    document.getElementById('demo').scrollIntoView({behavior:'smooth'});
   }
 
-  function hideSignupWall() {
-    document.getElementById('signup-wall').style.display = 'none';
-  }
+  // ─── SIGNUP WALL ────────────────────────────────────────
+  function showSignupWall() { document.getElementById('signup-wall').style.display = 'flex'; }
+  function hideSignupWall() { document.getElementById('signup-wall').style.display = 'none'; }
 
   function submitSignup() {
     const name  = document.getElementById('signup-name').value.trim();
@@ -352,21 +703,17 @@
     currentUser = { name, email };
     localStorage.setItem('rfUser', JSON.stringify(currentUser));
 
-    // Init daily credits
     if (localStorage.getItem('rfReset') !== new Date().toDateString()) {
       localStorage.setItem('rfCredits', '5');
       localStorage.setItem('rfReset', new Date().toDateString());
     }
     creditsLeft = parseInt(localStorage.getItem('rfCredits') ?? '5');
-
     hideSignupWall();
     updateCreditsDisplay();
     showToast(`Welcome, ${name}! You have 5 free emails today.`, 'success');
   }
 
-  // ─── FREE CREDITS ────────────────────────────────────────
-  let creditsLeft = 5;
-
+  // ─── CREDITS ────────────────────────────────────────────
   function initCredits() {
     if (!isLoggedIn()) return;
     if (localStorage.getItem('rfReset') !== new Date().toDateString()) {
@@ -410,17 +757,7 @@
     const tone = document.getElementById('tone').value;
     const cta  = document.getElementById('cta').value;
 
-    const prompt = `You are an elite B2B cold email copywriter with 15%+ reply rates.
-Write a cold email:
-- Sender: ${document.getElementById('sender-name').value || 'the sender'}
-- Prospect Company: ${company}
-- Prospect Role: ${document.getElementById('prospect-role').value || 'decision maker'}
-- Product: ${product}
-- Pain Point: ${document.getElementById('pain-point').value || 'operational inefficiency'}
-- Tone: ${toneMap[tone]}
-- CTA: ${ctaMap[cta]}
-Rules: Subject under 8 words. Opening specific to their company. Body max 150 words. One clear CTA. Add PS line.
-Format: Subject: [line]\n---\n[body]\nPS: [line]`;
+    const prompt = `You are an elite B2B cold email copywriter with 15%+ reply rates.\nWrite a cold email:\n- Sender: ${document.getElementById('sender-name').value || 'the sender'}\n- Prospect Company: ${company}\n- Prospect Role: ${document.getElementById('prospect-role').value || 'decision maker'}\n- Product: ${product}\n- Pain Point: ${document.getElementById('pain-point').value || 'operational inefficiency'}\n- Tone: ${toneMap[tone]}\n- CTA: ${ctaMap[cta]}\nRules: Subject under 8 words. Opening specific to their company. Body max 150 words. One clear CTA. Add PS line.\nFormat: Subject: [line]\n---\n[body]\nPS: [line]`;
 
     try {
       const res = await fetch(`${API_BASE}/generate`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, tier:'free' }) });
@@ -431,10 +768,11 @@ Format: Subject: [line]\n---\n[body]\nPS: [line]`;
       typeText(output, `Subject: Quick question about ${company}\n---\n${openers[tone]}\n\n${document.getElementById('pain-point').value ? `The challenge I keep seeing: ${document.getElementById('pain-point').value}. It costs more than most realise.` : `Manual processes are consistently killing velocity at companies like ${company}.`}\n\n${product} solves this — typically cutting overhead by 60% in 30 days.\n\nWorth a chat to ${ctaMap[cta]}?\n\n[Your Name]\n\nPS: Reaching out just to you — this problem seems particularly relevant to your role.`);
     }
 
-    creditsLeft--;
-    localStorage.setItem('rfCredits', creditsLeft.toString());
-    document.getElementById('credits-count').textContent   = creditsLeft + ' left today';
-    document.getElementById('credits-display').textContent = creditsLeft + ' free credits remaining';
+    if (!localStorage.getItem('rfPlan')) {
+      creditsLeft--;
+      localStorage.setItem('rfCredits', creditsLeft.toString());
+      updateCreditsDisplay();
+    }
     document.getElementById('copy-btn').style.display = 'block';
     btn.disabled = false;
     document.getElementById('gen-label').innerHTML = '⚡ Generate Another Email';
@@ -451,10 +789,10 @@ Format: Subject: [line]\n---\n[body]\nPS: [line]`;
 
   // ─── MODAL ───────────────────────────────────────────────
   function openModal(plan) {
-    if (plan === 'starter') { document.getElementById('demo').scrollIntoView({behavior:'smooth'}); return; }
+    if (plan === 'starter') { scrollToDemo(); return; }
     currentPlan = plan;
-    document.getElementById('modal-title').textContent = PLANS[plan].title;
-    document.getElementById('modal-sub').textContent   = PLANS[plan].sub;
+    document.getElementById('modal-title').textContent  = PLANS[plan].title;
+    document.getElementById('modal-sub').textContent    = PLANS[plan].sub;
     document.getElementById('modal-errors').textContent = '';
     document.getElementById('payment-modal').classList.add('active');
   }
@@ -505,10 +843,18 @@ Format: Subject: [line]\n---\n[body]\nPS: [line]`;
     showToast('🎉 Trial started! Check your email.', 'success');
     localStorage.setItem('rfPlan', plan);
     localStorage.setItem('rfCredits', '9999');
-    document.getElementById('credits-count').textContent   = 'Unlimited';
-    document.getElementById('credits-display').textContent = 'Unlimited (Pro)';
+    updateCreditsDisplay();
   }
 
+  // ─── FAQ TOGGLE ──────────────────────────────────────────
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const arrow  = el.querySelector('.faq-arrow');
+    answer.classList.toggle('open');
+    arrow.classList.toggle('open');
+  }
+
+  // ─── TOAST ───────────────────────────────────────────────
   function showToast(msg, type = 'success') {
     const t = document.getElementById('toast');
     t.textContent = msg; t.className = `toast ${type} show`;
