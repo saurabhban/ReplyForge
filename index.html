@@ -117,9 +117,9 @@
 </nav>
 
 <section class="hero">
-  <div class="badge">🚀 AI Revenue Experiment — ₹0 to ₹75 Lakh</div>
-  <h1>Cold Emails That <span>Actually Book Meetings</span> — Written by AI in Seconds</h1>
-  <p class="hero-sub">Stop wasting hours crafting cold outreach. ReplyForge generates hyper-personalized emails with 3–5× higher reply rates.</p>
+  <div class="badge">⚡ Powered by Advanced AI · Trusted by Sales Teams</div>
+  <h1>Write Cold Emails That <span>Actually Get Replies</span> — In Seconds</h1>
+  <p class="hero-sub">ReplyForge uses AI to craft hyper-personalized cold emails tailored to your prospect — so you spend less time writing and more time closing.</p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">⚡ Try It Free — No Card Needed</button>
     <button class="btn-secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See Pricing →</button>
@@ -285,9 +285,40 @@
 <div class="toast" id="toast"></div>
 
 <footer>
-  <p>© 2025 ReplyForge — AI Revenue Experiment 🇮🇳</p>
-  <p style="margin-top:0.5rem">Made with ⚡ using only free tools · Payments secured by Razorpay</p>
+  <p>© 2025 ReplyForge · AI-Powered Cold Email Platform 🇮🇳</p>
+  <p style="margin-top:0.5rem">Built for Indian Sales Teams · Payments secured by Razorpay</p>
 </footer>
+
+<!-- ── SIGNUP WALL ─────────────────────────────────────── -->
+<div id="signup-wall" style="display:none;position:fixed;inset:0;background:rgba(10,10,15,0.92);z-index:200;align-items:center;justify-content:center;padding:1.5rem;">
+  <div style="background:#12121a;border:1px solid #2a2a3d;border-radius:20px;padding:2.5rem;max-width:420px;width:100%;text-align:center;">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">✉️</div>
+    <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.6rem;">Get Your 5 Free Emails</h2>
+    <p style="color:#8888a0;font-size:0.92rem;margin-bottom:1.8rem;line-height:1.6;">Create a free account to start generating AI-powered cold emails. No credit card required.</p>
+    <input id="signup-name" type="text" placeholder="Your full name" style="margin-bottom:0.8rem;" />
+    <input id="signup-email" type="email" placeholder="Your work email" style="margin-bottom:1.2rem;" />
+    <button onclick="submitSignup()" style="background:linear-gradient(135deg,#6c63ff,#8b5cf6);color:#fff;border:none;padding:0.9rem 2rem;border-radius:10px;font-size:1rem;font-weight:700;width:100%;cursor:pointer;">Get Free Access →</button>
+    <p style="color:#8888a0;font-size:0.78rem;margin-top:1rem;">5 free emails/day · No spam · Cancel anytime</p>
+  </div>
+</div>
+
+<!-- ── DAILY LIMIT MODAL ───────────────────────────────── -->
+<div id="limit-modal" style="display:none;position:fixed;inset:0;background:rgba(10,10,15,0.92);z-index:200;align-items:center;justify-content:center;padding:1.5rem;">
+  <div style="background:#12121a;border:1px solid #2a2a3d;border-radius:20px;padding:2.5rem;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">🔒</div>
+    <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:0.6rem;">You've Used All 5 Free Emails Today</h2>
+    <p style="color:#8888a0;font-size:0.92rem;margin-bottom:1.5rem;line-height:1.6;">Your free credits reset tomorrow at midnight. Or upgrade now for <strong style="color:#e8e8f0;">unlimited emails, sequences, and priority support.</strong></p>
+    <div style="background:#1a1a26;border:1px solid #2a2a3d;border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;text-align:left;">
+      <p style="font-size:0.88rem;color:#e8e8f0;margin-bottom:0.5rem;font-weight:700;">Why upgrade to Pro?</p>
+      <p style="font-size:0.84rem;color:#8888a0;line-height:1.7;">✅ Unlimited AI emails every day<br>✅ Multi-step email sequences<br>✅ Export to CSV / CRM<br>✅ Priority support<br>✅ Advanced tone & CTA controls</p>
+    </div>
+    <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+      <button onclick="document.getElementById('limit-modal').style.display='none';openModal('pro');" style="flex:1;background:linear-gradient(135deg,#6c63ff,#8b5cf6);color:#fff;border:none;padding:0.9rem;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;">Upgrade to Pro — ₹2,400/mo</button>
+      <button onclick="document.getElementById('limit-modal').style.display='none';" style="flex:1;background:transparent;color:#8888a0;border:1px solid #2a2a3d;padding:0.9rem;border-radius:10px;font-size:0.9rem;cursor:pointer;">Wait until tomorrow</button>
+    </div>
+    <p style="color:#8888a0;font-size:0.78rem;margin-top:1rem;">Free credits reset daily at midnight 🕛</p>
+  </div>
+</div>
 
 <script>
   // ─── CONFIG — Fill these in before deploying ─────────────
@@ -295,25 +326,74 @@
   const API_BASE        = 'https://replyforge-backend.onrender.com/api';
 
   const PLANS = {
-    pro:  { title: 'Pro — 7-Day Free Trial',        sub: 'Then ₹2,499/mo. Cancel anytime.',              planId: 'plan_YOUR_PRO_PLAN_ID'  },
-    team: { title: 'Team Plan — 7-Day Free Trial',  sub: 'Then ₹6,499/mo for 5 seats. Cancel anytime.',  planId: 'plan_YOUR_TEAM_PLAN_ID' }
+    pro:  { title: 'ReplyForge Pro — Unlimited Emails',      sub: '₹2,400/mo. Cancel anytime. No hidden charges.',         planId: 'plan_SLojm7pylnVd2D'  },
+    team: { title: 'ReplyForge Team — 5 Seats Included',     sub: '₹6,500/mo for your entire team. Cancel anytime.',       planId: 'plan_SLokhhflS2uQKu' }
   };
 
   let currentPlan = 'pro';
+  let currentUser = JSON.parse(localStorage.getItem('rfUser') || 'null');
+
+  function isLoggedIn() { return !!currentUser; }
+
+  function showSignupWall() {
+    document.getElementById('signup-wall').style.display = 'flex';
+  }
+
+  function hideSignupWall() {
+    document.getElementById('signup-wall').style.display = 'none';
+  }
+
+  function submitSignup() {
+    const name  = document.getElementById('signup-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    if (!name || !email) { showToast('Please enter your name and email.', 'error'); return; }
+    if (!/\S+@\S+\.\S+/.test(email)) { showToast('Please enter a valid email.', 'error'); return; }
+
+    currentUser = { name, email };
+    localStorage.setItem('rfUser', JSON.stringify(currentUser));
+
+    // Init daily credits
+    if (localStorage.getItem('rfReset') !== new Date().toDateString()) {
+      localStorage.setItem('rfCredits', '5');
+      localStorage.setItem('rfReset', new Date().toDateString());
+    }
+    creditsLeft = parseInt(localStorage.getItem('rfCredits') ?? '5');
+
+    hideSignupWall();
+    updateCreditsDisplay();
+    showToast(`Welcome, ${name}! You have 5 free emails today.`, 'success');
+  }
 
   // ─── FREE CREDITS ────────────────────────────────────────
-  let creditsLeft = parseInt(localStorage.getItem('rfCredits') ?? '5');
-  if (localStorage.getItem('rfReset') !== new Date().toDateString()) {
-    creditsLeft = 5;
-    localStorage.setItem('rfCredits', '5');
-    localStorage.setItem('rfReset', new Date().toDateString());
+  let creditsLeft = 5;
+
+  function initCredits() {
+    if (!isLoggedIn()) return;
+    if (localStorage.getItem('rfReset') !== new Date().toDateString()) {
+      localStorage.setItem('rfCredits', '5');
+      localStorage.setItem('rfReset', new Date().toDateString());
+    }
+    creditsLeft = parseInt(localStorage.getItem('rfCredits') ?? '5');
+    updateCreditsDisplay();
   }
-  document.getElementById('credits-count').textContent   = creditsLeft + ' left today';
-  document.getElementById('credits-display').textContent = creditsLeft + ' free credits remaining';
+
+  function updateCreditsDisplay() {
+    const isPro = localStorage.getItem('rfPlan');
+    const label = isPro ? 'Unlimited' : creditsLeft + ' left today';
+    document.getElementById('credits-count').textContent   = label;
+    document.getElementById('credits-display').textContent = isPro ? 'Unlimited (Pro)' : creditsLeft + ' free credits remaining';
+  }
+
+  initCredits();
 
   // ─── EMAIL GENERATION ────────────────────────────────────
   async function generateEmail() {
-    if (creditsLeft <= 0) { showToast('No credits left today. Upgrade for unlimited!', 'error'); openModal('pro'); return; }
+    if (!isLoggedIn()) { showSignupWall(); return; }
+
+    if (creditsLeft <= 0 && !localStorage.getItem('rfPlan')) {
+      document.getElementById('limit-modal').style.display = 'flex';
+      return;
+    }
 
     const company = document.getElementById('prospect-company').value.trim();
     const product = document.getElementById('product').value.trim();
